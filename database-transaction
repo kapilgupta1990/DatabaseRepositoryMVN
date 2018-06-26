@@ -1,1 +1,63 @@
 
+Transaction : Collecction of operation that forms a single logical unit of work.
+eg : Transferring of amount from saving to current amount for a customer
+
+Every database should fullfill ACID property.
+
+A-> Atomicity : Either all operations of the transaction are reflected properly in the database, or none are 
+
+C-> Consistency :Execution of a transaction in isolation (that is, with no other
+transaction executing concurrently) preserves the consistency of the database.
+
+D-> Durability-> After a transaction completes successfully, the changes it has
+made to the database persist, even if there are system failures.
+
+I-> Isolation -> Even though multiple transactions may execute concurrently, the
+system guarantees that, for every pair of transactions Ti and Tj , it appears to Ti
+that either Tj finished execution before Ti started or Tj started execution after
+Ti finished. Thus, each transaction is unaware of other transactions executing
+concurrently in the system.
+
+
+Ensuring consistency for an individual transaction is the responsibility
+of the application programmer who codes the transaction.
+
+Ensuring atomicity
+is the responsibility of the database system; specifically, it is handled by a
+component of the database called the recovery system. How it does it??
+
+The basic idea behind ensuring atomicity is this: The database system
+keeps track (on disk) of the old values of any data on which a transaction
+performs a write. This information is written to a file called the log. If the
+transaction does not complete its execution, the database system restores the
+old values from the log to make it appear as though the transaction never
+executed.
+
+The recovery system of the database, is responsible
+for ensuring durability, in addition to ensuring atomicity.
+
+
+Isolation:if several transactions are executed concurrently, their operations
+may interleave in some undesirable way, resulting in an inconsistent
+state.
+For example, as we saw earlier, the database is temporarily inconsistent
+while the transaction to transfer funds from A to B is executing, with the
+deducted total written to A and the increased total yet to be written to B. If a
+second concurrently running transaction reads A and B at this intermediate
+point and computes A+B, it will observe an inconsistent value. Furthermore,
+if this second transaction then performs updates on A and B based on the
+inconsistent values that it read, the database may be left in an inconsistent
+state even after both transactions have completed.
+A way to avoid the problem of concurrently executing transactions is to
+execute transactions serially— that is, one after the other. However, concurrent
+execution of transactions provides significant performance benefits, as
+we shall see in Section 14.5. Other solutions have therefore been developed;
+they allow multiple transactions to execute concurrently.
+We discuss the problems caused by concurrently executing transactions
+in Section 14.5. The isolation property of a transaction ensures that the concurrent
+execution of transactions results in a system state that is equivalent
+to a state that could have been obtained had these transactions executed one
+at a time in some order. We shall discuss the principles of isolation further in
+Section 14.6. Ensuring the isolation property is the responsibility of a component
+of the database system called the concurrency-control system, which
+we discuss later, in Chapter 15.
