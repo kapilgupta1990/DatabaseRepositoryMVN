@@ -1,0 +1,32 @@
+Serializable schedules are the ideal way to ensure consistency, but in our dayto-day
+lives, we don’t impose such stringent requirements. A Web site offering
+goods for sale may list an item as being in stock, yet by the time a user selects
+the item and goes through the checkout process, that item might no longer be
+available. Viewed from a database perspective, this would be a nonrepeatable
+read.
+As another example, consider seat selection for air travel. Assume that a
+traveler has already booked an itinerary and now is selecting seats for each
+flight. Many airline Web sites allow the user to step through the various flights
+and choose a seat, after which the user is asked to confirm the selection. It could
+be that other travelers are selecting seats or changing their seat selections for
+the same flights at the same time. The seat availability that the traveler was
+shown is thus actually changing, but the traveler is shown a snapshot of the seat
+availability as of when the traveler started the seat selection process.
+Even if two travelers are selecting seats at the same time, most likely they
+will select different seats, and if so there would be no real conflict. However,
+the transactions are not serializable, since each traveler has read data that was
+subsequently updated by the other traveler, leading to a cycle in the precedence
+graph. If two travelers performing seat selection concurrently actually selected
+the same seat, one of them would not be able to get the seat they selected;
+however, the situation could be easily resolved by asking the traveler to perform
+the selection again, with updated seat availability information.
+It is possible to enforce serializability by allowing only one traveler to do
+seat selection for a particular flight at a time. However, doing so could cause
+significant delays as travelers would have to wait for their flight to become
+available for seat selection; in particular a traveler who takes a long time to
+make a choice could cause serious problems for other travelers. Instead, any such
+transaction is typically broken up into a part that requires user interaction, and
+a part that runs exclusively on the database. In the example above, the database
+transaction would check if the seats chosen by the user are still available, and
+if so update the seat selection in the database. Serializability is ensured only for
+the transactions that run on the database, without user interaction.
