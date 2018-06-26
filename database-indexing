@@ -1,1 +1,63 @@
 
+Database Index:
+
+An index is a data structure using which you can speed up the performance of query.
+
+ A Clustered Index is the table itself, and while creating it, it re-orders the table with the Clustering Key. T
+ hus you can have only one Clustered Index on a table.
+ A clustered index is automatically created when a primary key is defined for a table.
+
+- A Non-Clustered Index is a copy of the table with selected columns.
+ A non-clustered index is automatically created when a unique key is defined for a table.
+
+
+Difference Between Clustered and Non-clustered index
+https://techdifferences.com/difference-between-clustered-and-non-clustered-index.html
+
+
+Difference b/w primary key and unique key
+https://techdifferences.com/difference-between-primary-key-and-unique-key.html
+
+
+More details:
+https://www.csee.umbc.edu/courses/undergraduate/CMSC461/Fall00/Burt/lectures/lec24/comparison.html
+
+
+-- We can always alter the table to create primary key later on time after creation of table.
+
+Use keys to improve query performance
+The following example illustrates how primary keys can make queries execute more quickly.
+
+Copy example	
+SELECT *
+FROM Employees
+WHERE EmployeeID = 390;
+The simplest way for the database server to execute this query would be to look at all 75 rows in the Employees table and check the employee ID number in each row to see if it is 390. This does not take very long since there are only 75 employees, but for tables with many thousands of entries a sequential search can take a long time.
+
+The referential integrity constraints embodied by each primary or foreign key are enforced by SQL Anywhere through the help of an index, implicitly created with each primary or foreign key declaration. The EmployeeID column is the primary key for the Employees table. The corresponding primary key index permits the retrieval of employee number 390 quickly. This quick search takes almost the same amount of time whether there are 100 rows or 1000000 rows in the Employees table.
+
+Separate indexes are created automatically for primary and foreign keys. This arrangement allows SQL Anywhere to perform many operations more efficiently.
+
+
+Use Indexes effectively:
+http://dcx.sap.com/1200/en/dbusage/indexes-top-perform.html
+
+Working with indexes:
+http://dcx.sap.com/1200/en/dbusage/bldind.html
+
+
+SQL Anywhere automatically indexes primary key and foreign key columns. So, manually creating an index on a key column is not necessary and is generally not recommended. If a column is only part of a key, an index can help.
+
+The ORDER BY clause allows sorting of query results by one or more columns. Each sort can be ascending (ASC) or descending (DESC). If neither is specified, ASC is assumed.
+
+More information about database Indexes:
+https://docs.microsoft.com/en-us/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-2017
+
+
+
+
+Heaps : A table without the cluster index is known as heap.
+
+
+More on clustered v/s Non clustered Indexes:
+http://www.sqlservercentral.com/blogs/practicalsqldba/2013/03/14/sql-server-part-4-explaining-the-non-clustered-index-structure-/
