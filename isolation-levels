@@ -1,0 +1,17 @@
+The isolation levels specified by the SQL standard are as follows:
+
+Serializable  --> usually ensures serializable execution. However, as we shall
+explain shortly, some database systems implement this isolation level in a
+manner that may, in certain cases, allow nonserializable executions.
+
+
+Repeatable read->
+
+Read commited ->
+
+
+Read uncommited- >
+
+
+
+Many database systems run, by default, at the read-committed isolation level.
