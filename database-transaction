@@ -61,3 +61,11 @@ at a time in some order. We shall discuss the principles of isolation further in
 Section 14.6. Ensuring the isolation property is the responsibility of a component
 of the database system called the concurrency-control system, which
 we discuss later, in Chapter 15.
+
+
+
+
+It is the job of the database system to
+ensure that any schedule that is executed will leave the database in a consistent
+state. The concurrency-control component of the database system carries out this
+task.
